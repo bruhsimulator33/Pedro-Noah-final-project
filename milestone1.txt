@@ -1,0 +1,46 @@
+Team number, team name (optional), and the list of team members
+-- Noah Bull and Pedro Castellon
+-- Team Name: TEAM SDS
+-- Team number: not given
+
+Name of the team leader: The team leader will submit this milestone and all future required milestone items, including the final project submission, for the group.
+-- Pedro Castellon
+
+Provide a project title, a short description of your dataset, and the big question you want to answer in your project.
+Title: The Summer Olympics The world economy's golden goose?
+
+Dataset 1: a description of medals won in teh summer olympics from 1896-2024 providing date, teams, names, and events
+Dataset 2: every countries overall GDP growth from 1980-1987
+Dataset 3: changes in every countries inflation, interest rates, and unemployment rates from 1970-2021 
+
+Our big question to answer is how big of a driving factor are summer olympics results in the global economy.
+
+Provide the URL(s) where the data can be downloaded.
+-- https://www.kaggle.com/datasets/stefanydeoliveira/summer-olympics-medals-1896-2024
+-- https://www.kaggle.com/datasets/sazidthe1/world-gdp-growth
+-- https://www.kaggle.com/datasets/prasertk/inflation-interest-and-unemployment-rate
+
+
+########### https://www.kaggle.com/datasets/jamesripoll/fifa-world-cup-history-dataset (better)
+
+
+
+Write five (or six) possibly interesting questions about your dataset that can be answered using SQL (from "Analyze your data using SQL" requirements) - Note that you can change these questions and at this point they can be simple.
+1. how do the summer olympics affect the GDP of a countries host city in the 4 years leading up (every world cup term)
+2. how do the results of the summer olympics affect the winning teams unemployment rate (most medals)
+3. how do the results of the summer olympics affect the losing teams unemployment rate (least medals)
+4. how do the results of the summer olympics affect the losing teams GDP (least medals)
+5. how do the results of the summer olympics affect the Winnig teams GDP (most medals)
+6. how does the GDP of the host country change 4 years after the summer olympics (every summer olympic term)
+7. how does the amount of medals won correlate with a countries GDP growth for that year
+
+Provide a quick summary on how you will divide up the work between members of the group.
+
+Pedro Castellon: find useful datasets (questions 4-6) (split number 7)
+
+Noah Bull: Find useful data sets (questions 1-3) (split number 7)
+
+
+In general, provide enough detail so that I can understand the scope of your project. Convince me that your project is worthy!
+We simply want to see how the summer olympics affects the global economy. Many cities see economic booms and downfalls before and after the summer olympics occurs
+If we can see if there is a correlation between summer olympics results, their location and the involved countries economy, we may have a very interesting story to tell!
