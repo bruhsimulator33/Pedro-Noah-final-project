@@ -2,7 +2,7 @@ import pandas as pd
 
 
 print('Read in inflation')
-df = pd.read_csv('inflation_interest_unemployment.csv')
+df = pd.read_csv('inflation.csv')
 
 #remove spaces
 df.columns = df.columns.str.strip()
@@ -22,7 +22,7 @@ print(df.isnull().any())
 
 
 print('read in olympics')
-df1 = pd.read_csv('olympics_dataset.csv')
+df1 = pd.read_csv('olympics.csv')
 
 print(df1.head())
 print(df1.info())
@@ -39,7 +39,7 @@ df1 = df1.fillna(0)
 df1 = df1[(df1['Year'] >= 1980) & (df1['Year'] <= 2021)]
 
 print('read in GDP')
-df2 = pd.read_csv('world_gdp_data.csv', encoding='latin1')
+df2 = pd.read_csv('gdp.csv', encoding='latin1')
 
 print(df2.head())
 print(df2.info())
