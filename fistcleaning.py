@@ -1,6 +1,14 @@
 import pandas as pd
 import numpy as np
 
+# echo "# Pedro-Noah-final-project" >> README.md
+# git init
+# git add README.md
+# git commit -m "first commit"
+# git branch -M main
+# git remote add origin git@github.com:bruhsimulator33/Pedro-Noah-final-project.git
+# git push -u origin main
+
 inflation = pd.read_csv("inflation.csv")
 olympics = pd.read_csv("olympics.csv")
 gdp = pd.read_csv("gdp.csv",encoding='latin1')
