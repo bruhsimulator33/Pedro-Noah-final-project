@@ -3,7 +3,7 @@ from PIL import Image
 # Open images
 img1 = Image.open("ER model GDP.jpg")
 img2 = Image.open("ER model Olympics.jpg")
-img3 = Image.open("ER model inflation .jpg")
+img3 = Image.open("ER model inflation.jpg")
 
 # Find the maximum width and total height
 width = max(img1.width, img2.width, img3.width)
