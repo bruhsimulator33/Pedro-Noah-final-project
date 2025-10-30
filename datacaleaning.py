@@ -20,6 +20,8 @@ print(df.describe())
 print(df.isnull().sum())
 print(df.isnull().any())
 
+print(df['country'].nunique())
+
 
 print('read in olympics')
 df1 = pd.read_csv('olympics.csv')
