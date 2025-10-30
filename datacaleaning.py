@@ -44,7 +44,7 @@ df1 = df1[(df1['Year'] >= 1980) & (df1['Year'] <= 2021)]
 
 print("start of GDP!!!!!!!")
 print('read in GDP')
-df2 = pd.read_csv('gdp.csv', encoding='latin1')
+df2 = pd.read_csv('gdp.csv')
 
 print(df2.head())
 print(df2.info())
