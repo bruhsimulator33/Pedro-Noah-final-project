@@ -3,59 +3,38 @@ DROP TABLE IF EXISTS Indicator;
 DROP TABLE IF EXISTS Olympics;
 
 
-CREATE TABLE Gdp (       
-    country_name VARCHAR(100) NOT NULL,     
-    year INT NOT NULL,                                     
-    total_gdp_million DECIMAL(20,2), 
+Table - Gdp        
+Columns- country_name, year,total_gdp_million 
 
-    PRIMARY KEY (country_name, year),
-    FOREIGN KEY (country_name, year)
-        REFERENCES Country_Year(country_name, year)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE                
+PRIMARY KEY (country_name, year)
+FOREIGN KEY (country_name, year)
+                      
         
-);
-
 -- for all unique combinations of country_name and year, they determine the value of the total gdp per million value.
 
-CREATE TABLE Indicator (
-    country_name VARCHAR(100) NOT NULL,
-    incomeLevel VARCHAR(50),
-    year INT NOT NULL,
-    inflation_cpi DECIMAL(10, 2),
-    real_interest_rate DECIMAL(10, 2),
-    unemployment_ilo DECIMAL(10, 2),
 
-    PRIMARY KEY (country_name, year),
-    FOREIGN KEY (country_name, year)
-        REFERENCES Country_Year(country_name, year)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
+Table - Indicator 
+columns - country_name,incomeLevel,year,inflation_cpi,real_interest_rate,unemployment_ilo 
+
+PRIMARY KEY (country_name, year),
+FOREIGN KEY (country_name, year)
+
 
 -- for each unique country and year combination, there is one value for income level, inflation cpi, real interest rate, unemployment ilo.
 
+Table - Olympics      
+Columns - Country,Year,Medal  
 
-CREATE TABLE Olympics(        
-    Country VARCHAR(100),                                    
-    Year INT,                                          
-    Medal VARCHAR(10) 
-
-    PRIMARY KEY (country_name, year),
-    FOREIGN KEY (country_name, year)
-        REFERENCES Country_Year(country_name, year)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
+PRIMARY KEY (country_name, year),
+FOREIGN KEY (country_name, year)
 
 -- for each unique country and year combination, that will determine the number of medals received. 
 
-CREATE TABLE Country_Year(
-    Country VARCHAR(100),
-    Year INT,
+Table - Country_Year
+Columns - Country,Year 
 
-     PRIMARY KEY (country_name, year)  
-);
+PRIMARY KEY (country_name, year)  
+
 
 
 # ALL OF THE TABLES ABOVE MEETS THE REQUIREMENTS OF BCNF
