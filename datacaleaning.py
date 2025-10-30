@@ -20,6 +20,8 @@ print(df.describe())
 print(df.isnull().sum())
 print(df.isnull().any())
 
+print(df['country'].nunique())
+
 
 print("start of olympics!!!!!!!")
 print('read in olympics')
