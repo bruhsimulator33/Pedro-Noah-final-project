@@ -16,6 +16,7 @@ CREATE TABLE Gdp (
         ON DELETE CASCADE                
         
 );
+-- BCNF
 
 -- for all unique combinations of country_name and year, they determine the value of the total gdp per million value.
 
@@ -33,6 +34,7 @@ CREATE TABLE Indicator (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+-- BCNF
 
 -- for each unique country and year combination, there is one value for income level, inflation cpi, real interest rate, unemployment ilo.
 
@@ -48,6 +50,7 @@ CREATE TABLE Olympics(
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+-- BCNF
 
 -- for each unique country and year combination, that will determine the number of medals received. 
 
@@ -57,3 +60,10 @@ CREATE TABLE Country_Year(
 
      PRIMARY KEY (country_name, year)  
 );
+-- BCNF
+
+-- ALL OF THE TABLES ABOVE MEETS THE REQUIREMENTS OF BCNF
+-- no multiple values in COLUMNS
+-- every non key depends on primary key (country and year)
+-- non key columns cannot depend on other non key columns (we're good)
+

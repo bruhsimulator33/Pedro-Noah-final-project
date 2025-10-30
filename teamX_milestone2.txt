@@ -146,6 +146,9 @@ CREATE TABLE Participation (
 
 
 
-#ALL OF THE TABLES ABOVE MEETS THE REQUIREMENTS OF BCNF
+# ALL OF THE TABLES ABOVE MEETS THE REQUIREMENTS OF BCNF
+# no multiple values in COLUMNS
+# every non key depends on primary key (country and year)
+# non key columns cannot depend on other non key columns (we're good)
 
 
