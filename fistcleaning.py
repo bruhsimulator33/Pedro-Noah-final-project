@@ -10,7 +10,7 @@ import numpy as np
 # git push -u origin main
 
 inflation = pd.read_csv("inflation.csv")
-olympics = pd.read_csv("olympics.csv")
+olympics = pd.read_csv("olympics.csv")          
 gdp = pd.read_csv("gdp.csv",encoding='latin1')
 
 

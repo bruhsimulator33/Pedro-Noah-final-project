@@ -39,29 +39,43 @@ print('Read in inflation')
 df = pd.read_csv('inflation.csv')
 
 
+
 print("REMOVE THE UNWANTED COLUMNS")
-df_new = df.drop(["Inflation, GDP deflator (annual %)", "Deposit interes (%)" ,"Unemployment, total (% of total labor force) (national estimate)", "iso3c","iso2c","adminregion"], axis=1)
+df_new = df.drop(["Inflation, GDP deflator (annual %)","Lending interest rate (%)", "Deposit interes (%)" ,"Unemployment, total (% of total labor force) (national estimate)", "iso3c","iso2c","adminregion"], axis=1)
 print(df_new.columns) #NICE
 
+
+
 #fill in NaN values
-df_new = df_new.fillna(0)
+df_new = df_new.fillna(0) # is this the problem?
+#print(df_new)
 
 
 #change data types
 df_new['country'] = df_new['country'].astype(str)#change to string datatype
+#print(df_new)
 df_new['year'] = df_new['year'].astype(int)
+#print(df_new)
 df_new['Inflation, consumer prices (ant rate (%),Lending interest ratenual %)'] = df_new['Inflation, consumer prices (ant rate (%),Lending interest ratenual %)'].astype(float)
+#print(df_new)
 df_new['Real interest rate (%)'] = df_new['Real interest rate (%)'].astype(float)
+#print(df_new)
 df_new['Unemployment, total (% of total labor force) (modeled ILO estimate)'] = df_new['Unemployment, total (% of total labor force) (modeled ILO estimate)'].astype(float)
+#print(df_new)
 df_new['incomeLevel'] = df_new['incomeLevel'].astype(str)#change to string datatype
+#print(df_new)
 
 
-df_new['country'] = df_new['country'].str.upper() # make the country column uppercase
+
+df_new['country'] = df_new['country'].str.upper() # make the country column uppercase (didnt work)
+#print(df_new)
 df_new['country'] = df_new['country'].str.replace('"', '') #remove quotes in the column (helps with bahamas)
-df_new = df_new[df_new['country'].isin(allcountries)] #see if the instances of country exists in a list of all countries today
-
+print(df_new)
+df_new = df_new[df_new['country'].isin(allcountries)] #see if the instances of country exists in a list of all countries today      (this is the problem)
 print(df_new)
 
+#coulmn labels are not lined up where they should be
+#IT WORKEDDDDDD
 
 #remove spaces
 df_new.columns = df_new.columns.str.strip() #delete whitespace
@@ -69,25 +83,24 @@ df_new.columns = df_new.columns.str.strip() #delete whitespace
 #remove rows
 #is_in_list = df_new['country'].isin(allcountries) #see if the instances of country exists in a list of all countries today
 df_new = df_new[(df_new['year'] >= 1970) & (df_new['year'] <= 2021)] #only instances from 1970-2021
+
 print(df_new)
 
-print(df_new.head())
-print(df_new.info())
-print(df_new.describe())
-print(df_new.isnull().sum())
-print(df_new.isnull().any())
+#FILTERED TO MATCH THE YEARS THAT WE WANT!!!!!!!!!
 
 
 
 print("start of olympics!!!!!!!")
 print('read in olympics')
+
 df1 = pd.read_csv('olympics.csv')
 
-print(df1.head())
-print(df1.info())
-print(df1.describe())
-print(df1.isnull().sum())
-print(df1.isnull().any())
+# print(df1.head())
+# print(df1.info())
+# print(df1.describe())
+# print(df1.isnull().sum())
+# print(df1.isnull().any())
+
 #remove spaces
 df1.columns = df1.columns.str.strip()
 
@@ -102,11 +115,11 @@ print("start of GDP!!!!!!!")
 print('read in GDP')
 df2 = pd.read_csv('gdp.csv', sep=';')
 
-print(df2.head())
-print(df2.info())
-print(df2.describe())
-print(df2.isnull().sum())
-print(df2.isnull().any())
+# print(df2.head())
+# print(df2.info())
+# print(df2.describe())
+# print(df2.isnull().sum())
+# print(df2.isnull().any())
 
 #remove spaces
 df2.columns = df2.columns.str.strip()
