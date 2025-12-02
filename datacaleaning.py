@@ -82,11 +82,18 @@ print("Inflation cleaned CSV saved as inflation_clean.csv")
 
 print("start of olympics!!!!!!!")
 # Cleaning
+
+# read csv
 df1 = pd.read_csv('olympics.csv')
+# select columns we want
 df1 = df1[['Team', 'Year', 'Medal']]
+# change Team to Country
 df1 = df1.rename(columns={'Team': 'Country'})
+# strip white space
 df1.columns = df1.columns.str.strip()
+# fill NaN values with 0
 df1 = df1.fillna(0)
+# year range
 df1 = df1[(df1['Year'] >= 1980) & (df1['Year'] <= 2021)]
 
 # 1. Check data types
@@ -120,43 +127,50 @@ print(df1.info())
 print(df1.describe())
 print(df1.isnull().sum())
 print(df1.isnull().any())
+
+
 #fill in NaN values
 df1 = df1.fillna(0)
 
 #remove rows
 df1 = df1[(df1['Year'] >= 1970) & (df1['Year'] <= 2021)]
 
-df1.to_csv('olympics_clean.csv', index=False)
-print("Olympics cleaned CSV saved as olympics_clean.csv")
 
 print("start of GDP!!!!!!!")
 print('read in GDP')
 df2 = pd.read_csv('gdp.csv', sep=';')
 
+
 print("start of GDP!!!!!!!")
 # Cleaning
-df2 = pd.read_csv('gdp.csv', sep=';')
-df2 = df2[['country_name', 'year', 'total_gdp_million']]
-df2 = df2.rename(columns={'country_name': 'Country'})
-df = df[(df['year'] >= 1980) & (df['year'] <= 2021)]
-df.columns = df.columns.str.strip()
-df2 = df2.fillna(0)
 
+# read csv
+df2 = df2[['country_name', 'year', 'total_gdp_million']]
+# rename country name to Country
+df2 = df2.rename(columns={'country_name': 'Country'})
+# strip white space from column names
+df2.columns = df2.columns.str.strip()
+# fill NaN values with 0
+df2 = df2.fillna(0)
+# convert types
+df2['Country'] = df2['Country'].astype(str).str.upper().str.replace('"', '', regex=False)
+df2['year'] = df2['year'].astype(int)
+df2['total_gdp_million'] = df2['total_gdp_million'].astype(float)
+
+# remove rows outside year range
+df2 = df2[(df2['year'] >= 1980) & (df2['year'] <= 2021)]
 
 # Check data types
 print("Data types of GDP DataFrame:")
 print(df2.dtypes)
-# check for data type (object, int,....)
 
 # Check for missing values
 print("Missing values in GDP DataFrame:")
 print(df2.isnull().sum())
-# Should be 0 if fillna(0) worked correctly
 
 # Check Year range
 print("Minimum and Maximum Year in GDP:")
 print(df2['year'].min(), df2['year'].max())
-# Should be between 1980 and 2021
 
 # Spot check unique countries
 print("Unique Countries in GDP DataFrame:", df2['Country'].nunique())
@@ -165,25 +179,8 @@ print("Unique Countries in GDP DataFrame:", df2['Country'].nunique())
 negative_gdp = df2[df2['total_gdp_million'] < 0]
 print("Number of negative GDP values:", len(negative_gdp))
 
-print(df2)
-
 print(df2.head())
 print(df2.info())
 print(df2.describe())
 print(df2.isnull().sum())
 print(df2.isnull().any())
-
-#remove spaces
-df2.columns = df2.columns.str.strip()
-
-#fill in NaN values
-df2 = df2.fillna(0)
-
-#Years and columns we want
-year_cols = [col for col in df2.columns if col.isdigit() and int(col) <= 2021]
-#df2 = df2[['country_name', 'indicator_name'] + year_cols] 
-
-# confirm data type in each column and what we did to make sure it was correct
-
-df2.to_csv('gdp_clean.csv', index=False)
-print("GDP cleaned CSV saved as gdp_clean.csv")
