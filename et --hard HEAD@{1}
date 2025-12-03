@@ -1,0 +1,34 @@
+[33mf7feb05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: rebase (abort): returning to refs/heads/main
+[33mfdc1a07[m HEAD@{1}: commit: made changes
+[33m7869807[m HEAD@{2}: commit: made changes
+[33ma2e9895[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{3}: pull origin main (start): checkout a2e989570e9f01ecc8e57f992aa5565e9ac1ef34
+[33mf7feb05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{4}: rebase (finish): returning to refs/heads/main
+[33mf7feb05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{5}: commit: changes
+[33me10d96a[m HEAD@{6}: commit: made changes
+[33me07d2fd[m HEAD@{7}: commit: made changes
+[33m6f9f8a9[m HEAD@{8}: commit: made changes
+[33m0e3230a[m HEAD@{9}: pull (start): checkout 0e3230a83291bd3a607e6fecaf01149eb2bdded3
+[33m0ad3a88[m HEAD@{10}: commit: made changes
+[33ma381ff1[m HEAD@{11}: commit: ready
+[33m80a4915[m HEAD@{12}: pull: Fast-forward
+[33m274bedc[m HEAD@{13}: commit: made changes
+[33mf0959db[m HEAD@{14}: pull: Fast-forward
+[33mc8884f5[m HEAD@{15}: pull: Fast-forward
+[33m53962e3[m HEAD@{16}: commit: changes
+[33m5a980dd[m HEAD@{17}: pull: Fast-forward
+[33md5dcadb[m HEAD@{18}: pull: Fast-forward
+[33m57a2f79[m HEAD@{19}: commit: changes
+[33m57d2701[m HEAD@{20}: commit: made changes
+[33mb523f13[m HEAD@{21}: commit: made changes
+[33mc50f7ed[m HEAD@{22}: commit: made more changes
+[33m456f7cd[m HEAD@{23}: commit: Made changes
+[33m3cb5850[m HEAD@{24}: pull (finish): returning to refs/heads/main
+[33m3cb5850[m HEAD@{25}: pull (start): checkout 3cb58508aa7580dab60eefae540b1a0f7dd0365b
+[33m0b2b701[m HEAD@{26}: commit: Yes
+[33m0f33a8b[m HEAD@{27}: pull (finish): returning to refs/heads/main
+[33m0f33a8b[m HEAD@{28}: pull (pick): yes
+[33maad1f15[m HEAD@{29}: pull (pick): first commit
+[33m534e8c7[m HEAD@{30}: pull (start): checkout 534e8c7a3ec3ac168737ac4cb6279499aa51c685
+[33mc27fc69[m HEAD@{31}: commit: yes
+[33m1c944d3[m HEAD@{32}: Branch: renamed refs/heads/main to refs/heads/main
+[33m1c944d3[m HEAD@{34}: commit (initial): first commit

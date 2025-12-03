@@ -1,12 +1,12 @@
 DROP TABLE IF EXISTS inflation;
 CREATE TABLE inflation (
-  country                                                                 VARCHAR(64)   NULL,
-  year                                                                    INT           NULL,
-  Inflation,_consumer_prices_(ant_rate_(%),Lending_interest_ratenual_%)   FLOAT         NULL,
-  Real_interest_rate_(%)                                                  FLOAT         NULL,
-  Lending_interest_rate_(%)                                               FLOAT         NULL,
-  Unemployment,_total_(%_of_total_labor_force)_(modeled_ILO_estimate)     FLOAT         NULL,
-  incomeLevel                                                             VARCHAR(64)   NULL
+  country              VARCHAR(64) NULL,
+  year                 INT         NULL,
+  inflation            FLOAT       NULL,
+  real_interest        FLOAT       NULL,
+  lending_interest     FLOAT       NULL,
+  unemployment         FLOAT       NULL,
+  income_level         VARCHAR(64) NULL
 );
 INSERT INTO inflation VALUES ('AFGHANISTAN',1970,0.0,0.0,0.0,0.0,'Low income');
 INSERT INTO inflation VALUES ('AFGHANISTAN',1971,0.0,0.0,0.0,0.0,'Low income');
