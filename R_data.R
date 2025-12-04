@@ -3,58 +3,111 @@ library(RMySQL)
 library(dplyr)
 library(ggplot2)
 
-# Connect to the database
+########################################
+# Connect to MySQL
+########################################
 con <- dbConnect(
-  MySQL(),
-  host = 'db.cs.usna.edu',
-  user = 'm270978',
-  password = 'm270978',
-  dbname = 'm270978'
+  RMySQL::MySQL(),
+  host = "db.cs.usna.edu",
+  user = "m270978",
+  password = "m270978",
+  dbname = "m270978"
 )
 
-#-----------------------------
-# Graph 1: GDP Growth vs Income Level
-#-----------------------------
-gdp_growth_query <- "
-SELECT g.Country, g.year, g.total_gdp_million, g.incomeLevel
-FROM gdp g
-JOIN inflation i ON g.Country = i.country AND g.year = i.year
+########################################
+# 1. Identify the single top-medal country
+########################################
+
+top_country_query <- "
+SELECT Country, COUNT(Medal) AS medals
+FROM olympics
+WHERE Medal != 'No medal'
+GROUP BY Country
+ORDER BY medals DESC
+LIMIT 1;
 "
 
-gdp_df <- dbGetQuery(con, gdp_growth_query)
+top_country <- dbGetQuery(con, top_country_query)
+top_country_name <- top_country$Country[1]
 
-# Calculate GDP growth per country
-gdp_df <- gdp_df %>%
-  arrange(Country, year) %>%
-  group_by(Country) %>%
-  mutate(gdp_growth = (total_gdp_million - lag(total_gdp_million)) / lag(total_gdp_million) * 100) %>%
-  filter(!is.na(gdp_growth))
+cat('Top medal country:', top_country_name, '\n')
 
-# Plot GDP growth by income level
-ggplot(gdp_df, aes(x = year, y = gdp_growth, color = incomeLevel)) +
-  geom_line() +
-  labs(title = "GDP Growth by Income Level", x = "Year", y = "GDP Growth (%)") +
-  theme_minimal()
-ggsave("gdp_growth_income_level_R.png")
+########################################
+# 2. Load GDP for this country
+########################################
 
+gdp_query <- sprintf("
+SELECT Country, year, total_gdp_million
+FROM gdp
+WHERE Country = '%s'
+ORDER BY year;
+", top_country_name)
 
-# Graph 2: Inflation vs Unemployment
+gdp_df <- dbGetQuery(con, gdp_query)
 
-inflation_query <- "
-SELECT country, year, `Inflation, consumer prices (ant rate (%),Lending interest ratenual %)`, `Unemployment, total (% of total labor force) (modeled ILO estimate)` AS unemployment
-FROM inflation
-WHERE year BETWEEN 2000 AND 2020
-"
+########################################
+# 3. GDP Plot (PNG)
+########################################
 
-inflation_df <- dbGetQuery(con, inflation_query)
+png("gdp_top_country.png", width = 1600, height = 1000, res = 150)
+print(
+  ggplot(gdp_df, aes(x = year, y = total_gdp_million)) +
+    geom_line(color = 'darkgreen', linewidth = 1.2) +
+    geom_point(color = 'black', size = 3) +
+    labs(
+      title = paste('GDP Over Time for', top_country_name),
+      x = 'Year',
+      y = 'GDP (Million USD)'
+    ) +
+    theme_minimal()
+)
+dev.off()
 
-# Scatter plot: Inflation vs Unemployment
-ggplot(inflation_df, aes(x = `Inflation, consumer prices (ant rate (%),Lending interest ratenual %)`, y = unemployment)) +
-  geom_point(alpha = 0.6, color = "darkgreen") +
-  geom_smooth(method = "lm", se = FALSE, color = "red") +
-  labs(title = "Inflation vs Unemployment", x = "Inflation Rate (%)", y = "Unemployment Rate (%)") +
-  theme_minimal()
-ggsave("inflation_vs_unemployment_R.png")
+########################################
+# 4. Load unemployment + medals for top-medal country (LEFT JOIN)
+########################################
 
-# Close connection
+unemp_query <- sprintf("
+SELECT i.country, i.year, i.unemployment, 
+       COUNT(o.Medal) AS medals
+FROM inflation i
+LEFT JOIN olympics o 
+  ON i.country = o.Country AND i.year = o.Year AND o.Medal != 'No medal'
+WHERE i.country = '%s'
+GROUP BY i.country, i.year, i.unemployment
+ORDER BY i.year;
+", top_country_name)
+
+unemp_df <- dbGetQuery(con, unemp_query)
+
+########################################
+# Check if data exists
+########################################
+if(nrow(unemp_df) == 0) {
+  stop("No unemployment data found for this country.")
+} else {
+  cat("Loaded", nrow(unemp_df), "rows of unemployment data.\n")
+}
+
+########################################
+# 5. Unemployment vs Medals Plot (PNG)
+########################################
+
+png("unemployment_vs_medals_top_country.png", width = 1600, height = 1000, res = 150)
+print(
+  ggplot(unemp_df, aes(x = medals, y = unemployment)) +
+    geom_point(size = 4, color = 'blue') +
+    geom_smooth(method = 'lm', se = FALSE, color = 'red') +
+    labs(
+      title = paste('Unemployment vs Medal Count for', top_country_name),
+      x = 'Medals Won',
+      y = 'Unemployment Rate (%)'
+    ) +
+    theme_minimal()
+)
+dev.off()
+
+########################################
+# Close the connection
+########################################
 dbDisconnect(con)
