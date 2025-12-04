@@ -80,14 +80,6 @@ ORDER BY i.year;
 
 unemp_df <- dbGetQuery(con, unemp_query)
 
-########################################
-# Check if data exists
-########################################
-if(nrow(unemp_df) == 0) {
-  stop("No unemployment data found for this country.")
-} else {
-  cat("Loaded", nrow(unemp_df), "rows of unemployment data.\n")
-}
 
 ########################################
 # 5. Unemployment vs Medals Plot (PNG)
