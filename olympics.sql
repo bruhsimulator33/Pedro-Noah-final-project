@@ -70,5 +70,14 @@ CREATE TABLE Participation (
 -- participation_id -> player_id, event_id, game_id, team_id, Medal
 -- the participation_id is a combination of the player at a specific event for a specific game on a specific team, and possibly winning a medal.
 
-
- 
+CREATE TABLE olympics_clean (
+    Country VARCHAR(50),
+    Year INT,
+    Medal VARCHAR(50)
+);
+LOAD DATA INFILE '/path/to/olympics_clean.csv'
+INTO TABLE olympics_clean
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;

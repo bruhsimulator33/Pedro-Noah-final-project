@@ -2,6 +2,7 @@
 Question 1:
 How do the Summer Olympics affect the GDP of a country's host city in the 4 years leading up?
 ----------------------------------------------*/
+-- mysql -h db.cs.usna.edu -u m270978 -pm270978 m270978 -fcvvv;
 SELECT g.country,g.year,g.total_gdp_million,
 h.year AS hosts
 FROM gdp g

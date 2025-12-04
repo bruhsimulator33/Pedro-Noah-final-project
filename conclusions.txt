@@ -1,4 +1,17 @@
 (10 pts) Part 3 - Analyze the data using SQL
+For SQL we decided to answer the questions how the olympics affected the GDP and employment rate
+of the team with the least amount of wins. So across the board, countries with few gold medals 
+to their name tended to do worse in both gdp and employment when compared to their peers.
+Growth in gpd and improvement in unemplyment rates typically followed a neutral or upward trend
+if not impacted by a freak issue like war in the country, a global pandemic, or recession
+but the speed that which it happened was definately noticeable. Now just beacuse there is
+correlation doesnt mean there is causation as poorer countries typically have less resources
+to invest into training athletes and thus may have a rough time competing on the global stage.
+comparing athletes from countries like the US to honduras may not be fair as the difference in 
+training quality could be so great. Ultimately poorer countries usually have bigger problems to
+tackle than sports so although there seems to be a relationship between the amount of medals won
+and the gdp / unemplyment rate of a country, it cannot be definatively concluded that the olympics
+caused it.
 
 (15 pts) Part 4 - Analyze the data using Python
 So while using python we decided to analyze the gdp fluctuations of countries hosting
@@ -22,6 +35,17 @@ growing economy just like the west so ultimately there is no baseline to tell if
 really had much of an impact. All in all, there is simpy too much to come to a sure conclusion
 of if the olympics affects a host countries economy but the data we anayzed tends to lean to
 yes it does.
- 
+
 
 (15 pts) Part 5 - Analyze the data using R
+With the R code we decided to answer how the olympics affected the gdp and uemployment rate 
+of the country that won the most amount of medals. throughout all the olympic competions, the
+countries that consistently led in the total number of gold medals won were also leaders in
+gdp and unemployment rate. Again, a linear trend was observed if we account for years that
+freakishly affected the economy. now just because a country won gold medals doesnt mean it was 
+the reason for its growth. more than likely, the fact that the country was already wealthy to 
+begin with likely was the contributing factor to why it was able to win so many medals. Thes
+surplus of resources means that a country would be able to better support an athletes training
+for the olympics. The United States almost always ranked at the top and its position as the worlds
+richest country is likely no coincidence. Again although there is correlation, there is no way to
+tell if there is causation as many other factors could have determined this outcome.
