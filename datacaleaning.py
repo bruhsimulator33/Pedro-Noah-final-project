@@ -107,7 +107,7 @@ print(df1.isnull().sum())
 # We filled missing values with 0 which means there should be no NaN
 
 # Check unique values for categorical variables
-print("Unique Countries:", df1['Country'].nunique())
+print("Unique Countries:", df1['Country'].nunique()) #should be 193 since thats how many countries exist
 print("Unique Medals:", df1['Medal'].unique())
 # Check to see if the medals are as expected
 
@@ -133,7 +133,7 @@ print(df1.isnull().any())
 df1 = df1.fillna(0)
 
 #remove rows
-df1 = df1[(df1['Year'] >= 1970) & (df1['Year'] <= 2021)]
+df1 = df1[(df1['Year'] >= 1970) & (df1['Year'] <= 2021)] #need to get the total amount of medals each country got that year
 
 
 print("start of GDP!!!!!!!")

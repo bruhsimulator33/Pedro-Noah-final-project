@@ -1,0 +1,41 @@
+DROP TABLE IF EXISTS hosts;
+
+CREATE TABLE hosts (
+    Country VARCHAR(50),
+    Year INT,
+    City VARCHAR(50)
+);
+
+
+INSERT INTO hosts(Country, Year, City) VALUES
+('GREECE',1896,'Athens'),
+('FRANCE',1900,'Paris'),
+('UNITED STATES',1904,'St. Louis'),
+('UNITED KINGDOM',1908,'London'),
+('SWEDEN',1912,'Stockholm'),
+('BELGIUM',1920,'Antwerp'),
+('FRANCE',1924,'Paris'),
+('NETHERLANDS',1928,'Amsterdam'),
+('UNITED STATES',1932,'Los Angeles'),
+('GERMANY',1936,'Berlin'),
+('UNITED KINGDOM',1948,'London'),
+('FINLAND',1952,'Helsinki'),
+('AUSTRALIA',1956,'Melbourne'),
+('ITALY',1960,'Rome'),
+('JAPAN',1964,'Tokyo'),
+('MEXICO',1968,'Mexico City'),
+('GERMANY',1972,'Munich'),
+('CANADA',1976,'Montreal'),
+('RUSSIA',1980,'Moscow'),
+('UNITED STATES',1984,'Los Angeles'),
+('SOUTH KOREA',1988,'Seoul'),
+('SPAIN',1992,'Barcelona'),
+('UNITED STATES',1996,'Atlanta'),
+('AUSTRALIA',2000,'Sydney'),
+('GREECE',2004,'Athens'),
+('CHINA',2008,'Beijing'),
+('UNITED KINGDOM',2012,'London'),
+('BRAZIL',2016,'Rio de Janeiro'),
+('JAPAN',2020,'Tokyo'),
+('FRANCE',2024,'Paris'),
+('UNITED STATES',2028,'Los Angeles');

@@ -1,0 +1,27 @@
+(10 pts) Part 3 - Analyze the data using SQL
+
+(15 pts) Part 4 - Analyze the data using Python
+So while using python we decided to analyze the gdp fluctuations of countries hosting
+the summer olympics. Now in order to limit the amount of factors affecting our data we
+decided to sample 3 summer olympics hosts being Spain, The United States, and South
+Korea from the years 1980-1992 to avoid the most amount of significant economic events
+such as the 2008 recession and Covid. Typically when a coutry hosts the olympics, they
+spend alot of time and money building facilities to accomadate for the events such as
+gyms, stadiums, parking lots, and estates for the athletes. All this development creates
+jobs within the country and promotes things like tourism which can temporarily boos the 
+earnings of a country. The problem emerges however after the games are over since many
+facilities are left into disrepair much to the dismay of the host country such as was the
+case in 2008 after the Beijing olympics. That being said after, looking at all the gdp 
+development within the 8 year time period of their olympic hosting, we almost always
+saw a staedy increase in GDP (save for some freak outside influences like covid). Now 
+unfortunately, just because we found a correlation doesnt mean we can conclude it was 
+causation. Many more things go into a countries economy other than contruction and tourism
+so to say that the olympics was the sole cause of a countries growth would be irresponsible.
+Additionally, the olympics tend to almost always be hosted in a country with a strong and
+growing economy just like the west so ultimately there is no baseline to tell if the olympics 
+really had much of an impact. All in all, there is simpy too much to come to a sure conclusion
+of if the olympics affects a host countries economy but the data we anayzed tends to lean to
+yes it does.
+ 
+
+(15 pts) Part 5 - Analyze the data using R

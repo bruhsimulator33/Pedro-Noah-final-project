@@ -7,16 +7,16 @@ library(ggplot2)
 con <- dbConnect(
   MySQL(),
   host = 'db.cs.usna.edu',
-  user = 'm270774',
-  password = 'm270774',
-  dbname = 'm270774'
+  user = 'm270978',
+  password = 'm270978',
+  dbname = 'm270978'
 )
 
 #-----------------------------
 # Graph 1: GDP Growth vs Income Level
 #-----------------------------
 gdp_growth_query <- "
-SELECT Country, year, total_gdp_million, incomeLevel
+SELECT g.Country, g.year, g.total_gdp_million, g.incomeLevel
 FROM gdp g
 JOIN inflation i ON g.Country = i.country AND g.year = i.year
 "
@@ -37,9 +37,9 @@ ggplot(gdp_df, aes(x = year, y = gdp_growth, color = incomeLevel)) +
   theme_minimal()
 ggsave("gdp_growth_income_level_R.png")
 
-#-----------------------------
+
 # Graph 2: Inflation vs Unemployment
-#-----------------------------
+
 inflation_query <- "
 SELECT country, year, `Inflation, consumer prices (ant rate (%),Lending interest ratenual %)`, `Unemployment, total (% of total labor force) (modeled ILO estimate)` AS unemployment
 FROM inflation

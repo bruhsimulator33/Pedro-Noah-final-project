@@ -69,3 +69,6 @@ CREATE TABLE Participation (
 
 -- participation_id -> player_id, event_id, game_id, team_id, Medal
 -- the participation_id is a combination of the player at a specific event for a specific game on a specific team, and possibly winning a medal.
+
+
+ 

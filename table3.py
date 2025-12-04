@@ -45,6 +45,10 @@ print(");")
 for row in csv.reader(data[1:], quotechar='"', delimiter=',', skipinitialspace=True):
     insert = []
     for index in range(len(headers)):
+
+        if headers[index].lower() == 'country':
+            row[index] = row[index].upper() #try this out to make all the countries upper case
+
         if row[index] == '':
             insert.append('NULL')
         elif design[index][0]:

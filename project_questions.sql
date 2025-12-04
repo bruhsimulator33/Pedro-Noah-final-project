@@ -2,14 +2,13 @@
 Question 1:
 How do the Summer Olympics affect the GDP of a country's host city in the 4 years leading up?
 ----------------------------------------------*/
-SELECT DISTINCT g.country, g.year, g.total_gdp_million
+SELECT g.country,g.year,g.total_gdp_million,
+h.year AS hosts
 FROM gdp g
-JOIN olympics o
-  ON g.country = o.country
-WHERE g.year BETWEEN o.year - 4 AND o.year
-  AND o.year % 4 = 0
+JOIN hosts h
+    ON g.country = h.country
+WHERE g.year BETWEEN h.year - 4 AND h.year + 4
 ORDER BY g.country, g.year;
-
 
 /* ---------------------------------------------
 Question 2:
