@@ -1,0 +1,69 @@
+
+DROP TABLE IF EXISTS Gdp;
+DROP TABLE IF EXISTS Indicator;
+DROP TABLE IF EXISTS Olympics;
+
+
+CREATE TABLE Gdp (       
+    country_name VARCHAR(100) NOT NULL,     
+    year INT NOT NULL,                                     
+    total_gdp_million DECIMAL(20,2), 
+
+    PRIMARY KEY (country_name, year),
+    FOREIGN KEY (country_name, year)
+        REFERENCES Country_Year(country_name, year)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE                
+        
+);
+-- BCNF
+
+-- for all unique combinations of country_name and year, they determine the value of the total gdp per million value.
+
+CREATE TABLE Indicator (
+    country_name VARCHAR(100) NOT NULL,
+    incomeLevel VARCHAR(50),
+    year INT NOT NULL,
+    inflation_cpi DECIMAL(10, 2),
+    real_interest_rate DECIMAL(10, 2),
+    unemployment_ilo DECIMAL(10, 2),
+
+    PRIMARY KEY (country_name, year),
+    FOREIGN KEY (country_name, year)
+        REFERENCES Country_Year(country_name, year)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+-- BCNF
+
+-- for each unique country and year combination, there is one value for income level, inflation cpi, real interest rate, unemployment ilo.
+
+
+CREATE TABLE Olympics(        
+    Country VARCHAR(100),                                    
+    Year INT,                                          
+    Medal VARCHAR(10) 
+
+    PRIMARY KEY (country_name, year),
+    FOREIGN KEY (country_name, year)
+        REFERENCES Country_Year(country_name, year)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+-- BCNF
+
+-- for each unique country and year combination, that will determine the number of medals received. 
+
+CREATE TABLE Country_Year(
+    Country VARCHAR(100),
+    Year INT,
+
+     PRIMARY KEY (country_name, year)  
+);
+-- BCNF
+
+-- ALL OF THE TABLES ABOVE MEETS THE REQUIREMENTS OF BCNF
+-- no multiple values in COLUMNS
+-- every non key depends on primary key (country and year)
+-- non key columns cannot depend on other non key columns (we're good)
+

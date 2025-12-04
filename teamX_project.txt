@@ -1,0 +1,256 @@
+Part1:
+Team number and the list of team members
+- Number: Not provided
+- Members: Pedro Castellon, Noah Bull
+
+Name of the team leader: The team leader who submited the milestones and the final project
+- Team Leader: Pedro Castellon
+
+The project title, a short description of your dataset, and the big question you answered in your project
+-Title: The Summer Olympics The world economy's golden goose?
+-Big question: how does the summer olympics affect the gdp and uemployment rate for the host countries and the countries that win the most and least medals?
+
+The URL(s) where the data can be downloaded
+
+-- https://www.kaggle.com/datasets/stefanydeoliveira/summer-olympics-medals-1896-2024
+-- https://www.kaggle.com/datasets/sazidthe1/world-gdp-growth
+-- https://www.kaggle.com/datasets/prasertk/inflation-interest-and-unemployment-rate
+
+--------------------------------------------------------------------------------------------------
+
+Part2:
+The latest version of the ER diagram for the data
+
+-- will be included as a png file
+
+
+The list of tables, with columns, and keys, resulting from translating the ER model to relational model
+
+-Table - Gdp        
+Columns- country_name, year,total_gdp_million 
+PRIMARY KEY (country_name, year)
+FOREIGN KEY (country_name, year)
+
+-Table - Indicator 
+columns - country_name,incomeLevel,year,inflation_cpi,real_interest_rate,unemployment_ilo 
+PRIMARY KEY (country_name, year),
+FOREIGN KEY (country_name, year)
+
+-Table - Olympics      
+Columns - Country,Year,Medal  
+PRIMARY KEY (country_name, year),
+FOREIGN KEY (country_name, year)
+
+
+
+The functional dependencies for each table
+# every non key depends on primary key (country and year)
+# non key columns cannot depend on other non key columns (we're good)
+
+
+Whether each table is in BCNF or not
+# ALL OF THE TABLES ABOVE MEETS THE REQUIREMENTS OF BCNF
+# no multiple values in COLUMNS
+
+--------------------------------------------------------------------------------------------------
+
+Part3:
+---- The English version of the questions to answer in SQL
+Question 1:
+How do the Summer Olympics affect the GDP of a country's host city in the 4 years leading up?
+Question 2:
+How do the results of the Summer Olympics affect the winning teams unemployment rate (most medals)?
+Question 3:
+How do the results of the Summer Olympics affect the losing teams unemployment rate (least medals)?
+Question 4:
+How do the results of the Summer Olympics affect the losing teams GDP (least medals)?
+Question 5:
+How do the results of the Summer Olympics affect the winning teams GDP (most medals)?
+Question 6:
+How does the GDP of the host country change 4 years after the Summer Olympics (every Summer Olympic term)?
+
+
+
+---- The SQL queries to answer the questions above
+question 1:
+SELECT g.country,g.year,g.total_gdp_million,
+h.year AS hosts
+FROM gdp g
+JOIN hosts h
+    ON g.country = h.country
+WHERE g.year BETWEEN h.year - 4 AND h.year + 4
+ORDER BY g.country, g.year;
+
+question 2:
+SELECT 
+    i.country, 
+    i.year,
+    i.unemployment AS unemployment_rate
+FROM inflation i
+JOIN (
+    SELECT m1.country, m1.year
+    FROM (
+        SELECT UPPER(country) AS country, year, COUNT(*) AS medal_count
+        FROM olympics
+        WHERE medal != 'No medal'
+        GROUP BY country, year
+    ) m1
+    JOIN (
+        SELECT year, MAX(medal_count) AS max_medals
+        FROM (
+            SELECT country, year, COUNT(*) AS medal_count
+            FROM olympics
+            WHERE medal != 'No medal'
+            GROUP BY country, year
+        ) m2
+        GROUP BY year
+    ) m2 ON m1.year = m2.year AND m1.medal_count = m2.max_medals
+) winning_teams
+ON UPPER(i.country) = winning_teams.country 
+AND i.year = winning_teams.year;
+
+question 3:
+SELECT i.country, i.year, i.unemployment
+FROM inflation i
+JOIN (
+    SELECT m1.country, m1.year
+    FROM (
+        SELECT country, year, COUNT(*) AS medal_count
+        FROM olympics
+        GROUP BY country, year
+    ) m1
+    JOIN (
+        SELECT year, MIN(medal_count) AS min_medals
+        FROM (
+            SELECT country, year, COUNT(*) AS medal_count
+            FROM olympics
+            GROUP BY country, year
+        ) m2
+        GROUP BY year
+    ) m2 ON m1.year = m2.year AND m1.medal_count = m2.min_medals
+) losing_teams
+ON i.country = losing_teams.country AND i.year = losing_teams.year;
+
+Question 4:
+SELECT g.country, g.year, g.total_gdp_million
+FROM gdp g
+JOIN (
+    SELECT m1.country, m1.year
+    FROM (
+        SELECT country, year, COUNT(*) AS medal_count
+        FROM olympics
+        GROUP BY country, year
+    ) m1
+    JOIN (
+        SELECT year, MIN(medal_count) AS min_medals
+        FROM (
+            SELECT country, year, COUNT(*) AS medal_count
+            FROM olympics
+            GROUP BY country, year
+        ) m2
+        GROUP BY year
+    ) m2 ON m1.year = m2.year AND m1.medal_count = m2.min_medals
+) losing_teams
+ON g.country = losing_teams.country AND g.year = losing_teams.year;
+
+Question 5:
+SELECT g.country, g.year, g.total_gdp_million
+FROM gdp g
+JOIN (
+    SELECT m1.country, m1.year
+    FROM (
+        SELECT country, year, COUNT(*) AS medal_count
+        FROM olympics
+        WHERE medal != 'No medal'
+        GROUP BY country, year
+    ) m1
+    JOIN (
+        SELECT year, MAX(medal_count) AS max_medals
+        FROM (
+            SELECT country, year, COUNT(*) AS medal_count
+            FROM olympics
+            WHERE medal != 'No medal'
+            GROUP BY country, year
+        ) m2
+        GROUP BY year
+    ) m2 ON m1.year = m2.year AND m1.medal_count = m2.max_medals
+) winning_teams
+ON g.country = winning_teams.country AND g.year = winning_teams.year;
+
+Question 6: SELECT DISTINCT g.country, g.year, g.total_gdp_million
+FROM gdp g
+JOIN olympics o
+  ON g.country = o.country
+WHERE g.year BETWEEN o.year AND o.year + 4
+  AND o.year % 4 = 0;  
+
+--------------------------------------------------------------------------------------------------
+
+Part4:
+Description of the analysis done in Python
+We used python to graph the gdp and unemployment fluxuations of countries hosting the summer olympics.
+while doing this analysis, we covered a period of 8 years for each country to ensure we got a full
+picture of the events leading up to, during, and after the olympics took place
+
+--------------------------------------------------------------------------------------------------
+
+Part5:
+Description of analysis done on R
+We used R code to grpah the gdp and unemploment fluxutations of countries that won the most amount of medals.
+we simply compared the number of medals winner of the olympics brought back home and comepared it
+to the gdp and unemployment rate for that year
+--------------------------------------------------------------------------------------------------
+
+Part6:
+The graphs and conclusions for each of your analysis done in SQL, Python, or R
+(10 pts) Part 3 - Analyze the data using SQL
+For SQL we decided to answer the questions how the olympics affected the GDP and employment rate
+of the team with the least amount of wins. So across the board, countries with few gold medals 
+to their name tended to do worse in both gdp and employment when compared to their peers.
+Growth in gpd and improvement in unemplyment rates typically followed a neutral or upward trend
+if not impacted by a freak issue like war in the country, a global pandemic, or recession
+but the speed that which it happened was definately noticeable. Now just beacuse there is
+correlation doesnt mean there is causation as poorer countries typically have less resources
+to invest into training athletes and thus may have a rough time competing on the global stage.
+comparing athletes from countries like the US to honduras may not be fair as the difference in 
+training quality could be so great. Ultimately poorer countries usually have bigger problems to
+tackle than sports so although there seems to be a relationship between the amount of medals won
+and the gdp / unemplyment rate of a country, it cannot be definatively concluded that the olympics
+caused it.
+
+(15 pts) Part 4 - Analyze the data using Python
+So while using python we decided to analyze the gdp fluctuations of countries hosting
+the summer olympics. Now in order to limit the amount of factors affecting our data we
+decided to sample 3 summer olympics hosts being Spain, The United States, and South
+Korea from the years 1980-1992 to avoid the most amount of significant economic events
+such as the 2008 recession and Covid. Typically when a coutry hosts the olympics, they
+spend alot of time and money building facilities to accomadate for the events such as
+gyms, stadiums, parking lots, and estates for the athletes. All this development creates
+jobs within the country and promotes things like tourism which can temporarily boos the 
+earnings of a country. The problem emerges however after the games are over since many
+facilities are left into disrepair much to the dismay of the host country such as was the
+case in 2008 after the Beijing olympics. That being said after, looking at all the gdp 
+development within the 8 year time period of their olympic hosting, we almost always
+saw a staedy increase in GDP (save for some freak outside influences like covid). Now 
+unfortunately, just because we found a correlation doesnt mean we can conclude it was 
+causation. Many more things go into a countries economy other than contruction and tourism
+so to say that the olympics was the sole cause of a countries growth would be irresponsible.
+Additionally, the olympics tend to almost always be hosted in a country with a strong and
+growing economy just like the west so ultimately there is no baseline to tell if the olympics 
+really had much of an impact. All in all, there is simpy too much to come to a sure conclusion
+of if the olympics affects a host countries economy but the data we anayzed tends to lean to
+yes it does.
+
+
+(15 pts) Part 5 - Analyze the data using R
+With the R code we decided to answer how the olympics affected the gdp and uemployment rate 
+of the country that won the most amount of medals. throughout all the olympic competions, the
+countries that consistently led in the total number of gold medals won were also leaders in
+gdp and unemployment rate. Again, a linear trend was observed if we account for years that
+freakishly affected the economy. now just because a country won gold medals doesnt mean it was 
+the reason for its growth. more than likely, the fact that the country was already wealthy to 
+begin with likely was the contributing factor to why it was able to win so many medals. Thes
+surplus of resources means that a country would be able to better support an athletes training
+for the olympics. The United States almost always ranked at the top and its position as the worlds
+richest country is likely no coincidence. Again although there is correlation, there is no way to
+tell if there is causation as many other factors could have determined this outcome.
